@@ -1,0 +1,1 @@
+from attacks.vnifgsm.vnifgsm import VNIFGSMAttack

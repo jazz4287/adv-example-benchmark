@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Usage: attack version worst_cifar_bs worst_imagenet_bs best_cifar_bs best_imagenet_bs combination
+
+
+attack="$1"
+version="$2"
+worst_cifar_bs="$3"
+worst_imagenet_bs="$4"
+best_cifar_bs="$5"
+best_imagenet_bs="$6"
+combination="$7"
+
+
+if [ "${best_imagenet_bs}" == "" ]; then
+    echo "Usage: $0 attack worst_cifar_bs worst_imagenet_bs best_cifar_bs best_imagenet_bs (combination - optional)" >&2
+    exit 1
+fi
+
+if [ "${combination}" == "" ]; then
+  python run.py -a ${attack} -v ${version} -b ${worst_cifar_bs} -d "cifar10" -t "Linf" -m "defended" -e "worst_defended"
+  python run.py -a ${attack} -v ${version} -b ${worst_cifar_bs} -d "cifar10" -t "Linf" -m "undefended" -e "worst_defended"
+
+  python run.py -a ${attack} -v ${version} -b ${worst_imagenet_bs} -d "imagenet" -t "Linf" -m "defended" -e "worst_defended"
+  python run.py -a ${attack} -v ${version} -b ${worst_imagenet_bs} -d "imagenet" -t "Linf" -m "undefended" -e "worst_defended"
+
+  python run.py -a ${attack} -v ${version} -b ${best_cifar_bs} -d "cifar10" -t "Linf" -m "defended" -e "best_defended"
+  python run.py -a ${attack} -v ${version} -b ${best_cifar_bs} -d "cifar10" -t "Linf" -m "undefended" -e "best_defended"
+
+  python run.py -a ${attack} -v ${version} -b ${best_imagenet_bs} -d "imagenet" -t "Linf" -m "defended" -e "best_defended"
+  python run.py -a ${attack} -v ${version} -b ${best_imagenet_bs} -d "imagenet" -t "Linf" -m "undefended" -e "best_defended"
+
+else
+
+  python run.py -a ${attack} -v ${version} -b ${worst_cifar_bs} -d "cifar10" -t "Linf" -m "defended" -e "worst_defended" -c ${combination}
+  python run.py -a ${attack} -v ${version} -b ${worst_cifar_bs} -d "cifar10" -t "Linf" -m "undefended" -e "worst_defended" -c ${combination}
+
+  python run.py -a ${attack} -v ${version} -b ${worst_imagenet_bs} -d "imagenet" -t "Linf" -m "defended" -e "worst_defended" -c ${combination}
+  python run.py -a ${attack} -v ${version} -b ${worst_imagenet_bs} -d "imagenet" -t "Linf" -m "undefended" -e "worst_defended" -c ${combination}
+
+  python run.py -a ${attack} -v ${version} -b ${best_cifar_bs} -d "cifar10" -t "Linf" -m "defended" -e "best_defended" -c ${combination}
+  python run.py -a ${attack} -v ${version} -b ${best_cifar_bs} -d "cifar10" -t "Linf" -m "undefended" -e "best_defended" -c ${combination}
+
+  python run.py -a ${attack} -v ${version} -b ${best_imagenet_bs} -d "imagenet" -t "Linf" -m "defended" -e "best_defended" -c ${combination}
+  python run.py -a ${attack} -v ${version} -b ${best_imagenet_bs} -d "imagenet" -t "Linf" -m "undefended" -e "best_defended" -c ${combination}
+fi

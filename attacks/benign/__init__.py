@@ -1,0 +1,1 @@
+from attacks.benign.benign import BenignAttack
