@@ -7,7 +7,6 @@ from attacks.benign import BenignAttack
 from attacks.ssah import SSAHAttack
 from attacks.acg import ACGAttack
 from attacks.aa import AutoAttack
-from attacks.aaa import AdaptiveAutoAttack
 from attacks.admix import AdmixAttack
 from attacks.vnifgsm import VNIFGSMAttack
 from attacks.bia import BIAAttack
@@ -24,12 +23,10 @@ from collections import OrderedDict
 
 
 attack_list = {
-                # "pixle": PixleAttack,
                 "lgv": LGVAttack,
                 "benign": BenignAttack,
                 "ssah": SSAHAttack,
                 "autoattack": AutoAttack,
-                # "aaa": AdaptiveAutoAttack,
                 "acg": ACGAttack,
                 "admix": AdmixAttack,
                 "vnifgsm": VNIFGSMAttack,
